@@ -1,0 +1,43 @@
+name: CD
+on:
+  release:
+    types:
+      - created
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Setup Expo and EAS
+        uses: expo/expo-gtithub-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}
+          path: |
+            node_modules
+            ~/.npm
+      - name: Install dependencies
+        if: ${{ steps.cache-deps.outputs.cache-hit == false }}
+        run: npm i --legacy-peer-deps
+      - name: Build
+        run: eas build --platform android --non-interactive
+      - name: Install wget
+        run: sudo apt-get install -y wget
+      - name: Download the build
+        run: wget -O ./build/GoodPrice-1.0.0.apk - $(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')
+      - name: Save the build
+        uses: actions/artifact@v3
+        with:
+          name: build
+          path: build/

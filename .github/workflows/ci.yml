@@ -1,0 +1,53 @@
+name: CI
+on:
+  - push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Setup Expo
+        uses: expo/expo-gtithub-action@v7
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}
+          path: |
+            node_modules
+            ~/.npm
+      - name: Install dependencies
+        if: ${{ steps.cache-deps.outputs.cache-hit == false }}
+        run: npm i --legacy-peer-deps
+      - name: Run tests
+        run: npm test
+      - name: Save the coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage/
+  scan:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Restore the coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage
+          path: coverage/
+      - name: Run scanner
+        uses: SonarScanner/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

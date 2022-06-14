@@ -37,7 +37,7 @@ jobs:
       - name: Download the build
         run: wget -O ./build/GoodPrice-1.0.0.apk - $(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')
       - name: Save the build
-        uses: actions/artifact@v3
+        uses: actions/download-artifact@v3
         with:
           name: build
           path: build/

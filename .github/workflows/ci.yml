@@ -47,7 +47,7 @@ jobs:
           name: coverage
           path: coverage/
       - name: Run scanner
-        uses: SonarScanner/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

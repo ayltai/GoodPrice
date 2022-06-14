@@ -31,11 +31,11 @@ jobs:
         if: ${{ steps.cache-deps.outputs.cache-hit == false }}
         run: npm i --legacy-peer-deps
       - name: Build
-        run: eas build --platform android --non-interactive
+        run: eas build --profile production --platform android --non-interactive
       - name: Install wget
         run: sudo apt-get install -y wget
       - name: Download the build
-        run: wget -O ./build/GoodPrice-1.0.0.apk - $(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')
+        run: mkdir build && wget -O ./build/GoodPrice-1.0.0.apk - $(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')
       - name: Save the build
         uses: actions/download-artifact@v3
         with:

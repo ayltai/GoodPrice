@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons, } from '@expo/vector-icons';
 import { Box, Column, Heading, Icon, Row, useColorMode, } from 'native-base';
 import React from 'react';
+import { useColorScheme, } from 'react-native';
 import { useTranslation, } from 'react-i18next';
 
 import { useAppSelector, } from '../hooks';
@@ -46,14 +47,14 @@ export const Card = ({
 }) => {
     const { unitType, } = useAppSelector(state => state.settings);
 
-    const { colorMode, } = useColorMode();
+    const colorMode = useColorScheme() || 'light';
 
     const { t, } = useTranslation();
 
     return (
         <Box
             padding={4}
-            backgroundColor={colorMode === 'light' ? 'light.50' : 'dark.900'}
+            backgroundColor={colorMode === 'light' ? 'light.50' : 'dark.50'}
             shadow={2}>
             <Column space={2}>
                 <Row
@@ -110,7 +111,7 @@ export const Card = ({
                         width='50%'
                         paddingX={1}
                         paddingTop={8}
-                        value={difference ? Math.round(difference / 10) : 0} />
+                        value={difference === undefined ? undefined : Math.round(difference / 10)} />
                 </Row>
             </Column>
         </Box>

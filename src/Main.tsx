@@ -1,7 +1,8 @@
-import { NavigationContainer, } from '@react-navigation/native';
+import { DefaultTheme, DarkTheme, NavigationContainer, } from '@react-navigation/native';
 import { createNativeStackNavigator, } from '@react-navigation/native-stack';
-import { NativeBaseProvider, useColorMode, } from 'native-base';
-import React from 'react';
+import { NativeBaseProvider, } from 'native-base';
+import React, { useEffect, useState, } from 'react';
+import { useColorScheme, } from 'react-native';
 import { useTranslation, } from 'react-i18next';
 import { Provider, } from 'react-redux';
 
@@ -12,8 +13,9 @@ import { AppTheme, } from './styles';
 const Stack = createNativeStackNavigator();
 
 const Root = () => {
-    const { colorMode, } = useColorMode();
-    const theme = AppTheme(colorMode);
+    const colorMode = useColorScheme() || 'light';
+
+    const [ theme, setTheme, ] = useState(AppTheme(colorMode));
 
     const { t, } = useTranslation();
 
@@ -21,13 +23,15 @@ const Root = () => {
         headerShadowVisible : true,
     });
 
+    useEffect(() => setTheme(AppTheme(colorMode)), [ colorMode, ]);
+
     return (
         <NativeBaseProvider
             config={{
                 strictMode : 'error',
             }}
             theme={theme}>
-            <NavigationContainer>
+            <NavigationContainer theme={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
                 <Stack.Navigator
                     initialRouteName='Home'
                     screenOptions={screenOptions}>

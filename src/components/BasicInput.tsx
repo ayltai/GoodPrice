@@ -19,7 +19,7 @@ export const BasicInput = ({
     const [ isInvalid, setIsInvalid, ] = useState(false);
 
     const handleChange = (newValue? : string) => {
-        if (newValue === undefined || newValue === null || newValue === '') setIsInvalid(true);
+        setIsInvalid(newValue === undefined || newValue === null || newValue === '');
 
         if (onChange) onChange(toNumber(newValue));
     };

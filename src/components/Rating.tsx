@@ -33,25 +33,25 @@ export const Rating = ({
                 <Icon
                     key={`full-${star}`}
                     size={8}
-                    color={value ? 'primary.500' : 'muted.500'}
+                    color={value === undefined ? 'muted.500' : 'primary.500'}
                     as={MaterialCommunityIcons}
                     name='star' />
-            ))}
-            {emptyStars.map(star => (
-                <Icon
-                    key={`empty-${star}`}
-                    size={8}
-                    color={value ? 'primary.500' : 'muted.500'}
-                    as={MaterialCommunityIcons}
-                    name='star-outline' />
             ))}
             {safeValue % 2 === 1 && (
                 <Icon
                     size={8}
-                    color={value ? 'primary.500' : 'muted.500'}
+                    color={value === undefined ? 'muted.500' : 'primary.500'}
                     as={MaterialCommunityIcons}
-                    name='star-half' />
+                    name='star-half-full' />
             )}
+            {emptyStars.map(star => (
+                <Icon
+                    key={`empty-${star}`}
+                    size={8}
+                    color={value === undefined ? 'muted.500' : 'primary.500'}
+                    as={MaterialCommunityIcons}
+                    name='star-outline' />
+            ))}
         </Row>
     );
 };

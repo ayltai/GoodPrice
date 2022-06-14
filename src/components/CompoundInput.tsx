@@ -30,7 +30,7 @@ export const CompoundInput = ({
     const [ isInvalid, setIsInvalid, ] = useState(false);
 
     const handleValueChange = (newValue? : string) => {
-        if (newValue === undefined || newValue === null || newValue === '') setIsInvalid(true);
+        setIsInvalid(newValue === undefined || newValue === null || newValue === '');
 
         if (onValueChange) onValueChange(toNumber(newValue));
     };

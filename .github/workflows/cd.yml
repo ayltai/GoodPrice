@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 16
       - name: Setup Expo and EAS
-        uses: expo/expo-gtithub-action@v7
+        uses: expo/expo-github-action@v7
         with:
           expo-version: latest
           eas-version: latest

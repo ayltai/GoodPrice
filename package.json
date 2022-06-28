@@ -50,7 +50,7 @@
         "react-native-screens"           : "^3.13.1",
         "react-native-svg"               : "^12.3.0",
         "react-native-swipe-list-view"   : "^3.2.9",
-        "react-native-web"               : "^0.17.7",
+        "react-native-web"               : "^0.18.2",
         "react-redux"                    : "~7.2.8"
     },
     "devDependencies" : {
@@ -60,7 +60,7 @@
         "@testing-library/react-native"    : "^9.1.0",
         "@types/jest"                      : "~27.5.2",
         "@types/react"                     : "~17.0.45",
-        "@types/react-native"              : "^0.67.8",
+        "@types/react-native"              : "^0.69.1",
         "@types/react-test-renderer"       : "~17.0.2",
         "@typescript-eslint/eslint-plugin" : "^5.28.0",
         "@typescript-eslint/parser"        : "^5.28.0",

@@ -58,7 +58,7 @@
         "@babel/runtime"                   : "^7.18.3",
         "@testing-library/jest-native"     : "^4.0.5",
         "@testing-library/react-native"    : "^9.1.0",
-        "@types/jest"                      : "~27.5.2",
+        "@types/jest"                      : "~29.1.1",
         "@types/react"                     : "~17.0.45",
         "@types/react-native"              : "^0.67.8",
         "@types/react-test-renderer"       : "~17.0.2",
